@@ -40,7 +40,9 @@ export const clientErrorsHandler = (
       .send({ message: "Ошибка: " + error });
   }
 
-  return res.status(StatuseCodes.ERROR).send({ message: "Ошибка: " + error });
+  return res
+    .status(StatuseCodes.ERROR)
+    .send({ message: "На сервере произошла ошибка" });
 };
 
 export const notFoundErrorHandler = (req: Request, res: Response) => {

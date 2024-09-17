@@ -22,7 +22,6 @@ export const createCard = async (
   next: NextFunction
 ) => {
   try {
-    await Card.validate(req.body);
     await Card.create({ ...req.body, owner: req.user._id });
 
     res.status(StatuseCodes.CREATED).send("Created");

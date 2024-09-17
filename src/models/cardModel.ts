@@ -26,4 +26,6 @@ const cardSchema = new mongoose.Schema({
   createdAt: { type: Date, default: Date.now() },
 });
 
+cardSchema.set("validateBeforeSave", true);
+
 export default mongoose.model<ICard>("card", cardSchema);
