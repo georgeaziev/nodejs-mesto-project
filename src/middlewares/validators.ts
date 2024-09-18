@@ -1,4 +1,5 @@
 import { celebrate, Joi } from "celebrate";
+import { URL_REGEXP } from "../constants";
 
 export const signinValidator = celebrate({
   body: Joi.object().keys({
@@ -11,7 +12,7 @@ export const signupValidator = celebrate({
   body: Joi.object().keys({
     name: Joi.string().min(2),
     about: Joi.string().max(100),
-    avatar: Joi.string(),
+    avatar: Joi.string().pattern(URL_REGEXP),
     email: Joi.string().required().email(),
     password: Joi.string().required().min(8),
   }),
@@ -41,7 +42,7 @@ export const updateAvatarValidator = celebrate({
 export const createCardValidator = celebrate({
   body: Joi.object().keys({
     name: Joi.string().required().min(2).max(30),
-    link: Joi.string().required(),
+    link: Joi.string().pattern(URL_REGEXP).required(),
     createdAt: Joi.date(),
   }),
 });
