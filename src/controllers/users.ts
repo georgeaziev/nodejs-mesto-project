@@ -57,7 +57,7 @@ export const createUser = async (
     const newUser = { ...req.body, password: await hash(req.body.password, 8) };
     await User.create(newUser);
 
-    res.status(StatuseCodes.CREATED).send("Created");
+    res.status(StatuseCodes.CREATED).send({ message: "Created" });
   } catch (error) {
     next(error);
   }
@@ -76,7 +76,7 @@ export const updateUserProfile = async (
       req.body
     );
 
-    res.status(StatuseCodes.SUCCESS).send("Updated");
+    res.status(StatuseCodes.SUCCESS).send({ message: "Updated" });
   } catch (error) {
     next(error);
   }
@@ -94,7 +94,7 @@ export const updateUserAvatar = async (
 
     await User.findByIdAndUpdate(req.user._id, { avatar });
 
-    res.status(StatuseCodes.SUCCESS).send("Avatar updated");
+    res.status(StatuseCodes.SUCCESS).send({ message: "Avatar updated" });
   } catch (error) {
     next(error);
   }
@@ -108,9 +108,9 @@ export const login = async (
   try {
     await User.validate(req.body);
 
-    const [user] = await User
-      .find({ email: req.body.email })
-      .select("+password");
+    const [user] = await User.find({ email: req.body.email }).select(
+      "+password"
+    );
 
     const isCorrectPassword = !!user
       ? await compare(req.body.password, user.password)
@@ -128,7 +128,7 @@ export const login = async (
         maxAge: 604800000,
       })
       .status(StatuseCodes.SUCCESS)
-      .send("Logged in");
+      .send({ message: "Logged in" });
   } catch (error) {
     next(error);
   }

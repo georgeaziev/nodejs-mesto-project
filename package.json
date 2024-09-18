@@ -22,6 +22,7 @@
   "homepage": "https://gitlab.com/jkjkj.power/mesto_be#readme",
   "dependencies": {
     "bcrypt": "^5.1.1",
+    "celebrate": "^15.0.3",
     "dotenv": "^16.4.5",
     "eslint": "^9.9.1",
     "express": "^4.19.2",

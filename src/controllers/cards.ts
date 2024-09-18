@@ -24,7 +24,7 @@ export const createCard = async (
   try {
     await Card.create({ ...req.body, owner: req.user._id });
 
-    res.status(StatuseCodes.CREATED).send("Created");
+    res.status(StatuseCodes.CREATED).send({ message: "Created" });
   } catch (error) {
     next(error);
   }
@@ -38,10 +38,10 @@ export const deleteCard = async (
   try {
     const card = await Card.findById(req.params.cardId);
 
-    if (card?.owner === req.user._id) {
+    if (String(card?.owner) === req.user._id) {
       await card?.deleteOne();
 
-      return res.status(StatuseCodes.SUCCESS).send("Deleted");
+      return res.status(StatuseCodes.SUCCESS).send({ message: "Deleted" });
     }
 
     res
@@ -86,7 +86,7 @@ export const unlikeCard = async (
       { new: true }
     );
 
-    res.status(StatuseCodes.SUCCESS).send("Unliked");
+    res.status(StatuseCodes.SUCCESS).send({ message: "Unliked" });
   } catch (error) {
     next(error);
   }
